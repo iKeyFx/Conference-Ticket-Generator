@@ -139,23 +139,27 @@ const VerticalContent = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  right: 7%;
+  right: 9%;
   top: 7%;
   transform: translateY(-50%) rotate(-90deg);
   transform-origin: right center;
 
   h3 {
+    font-family: "Road rage";
     margin: 0;
-    font-size: 0.4rem;
+    font-size: 0.8rem;
     color: white;
     white-space: nowrap;
   }
 
   span {
+    font-family: "Road rage";
     display: block;
-    font-size: 0.4rem;
+    font-size: 0.8rem;
     color: white;
     white-space: nowrap;
+    font-weight: 600;
+    line-height: 1;
   }
 
   > div {
@@ -189,7 +193,7 @@ function TicketReady() {
   const {
     ticketType,
     quantity,
-    formData: { imageUrl, firstName, lastName },
+    formData: { imageUrl, firstName, lastName, email },
   } = location.state;
   const navigate = useNavigate();
   const [stickerImage, setStickerImage] = useState(null);
@@ -228,9 +232,9 @@ function TicketReady() {
           <VerticalContent>
             <TicketLabel src={stickerImage} alt="Ticket Regular" />
             <div>
-              <h3>Techember Fest "25</h3>
+              <h3>{email}</h3>
               <span>
-                User Name: {firstName} {lastName}
+                Name: {firstName} {lastName}
               </span>
             </div>
           </VerticalContent>
