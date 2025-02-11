@@ -14,10 +14,10 @@ const SectionContainer = styled.section`
 `;
 
 const TicketCardContainer = styled.div`
-  background-color: #041e23;
+  background-color: var(--color-primary);
   border-radius: 40px;
-  border: 1px solid #0e464f;
-  box-shadow: 0px 0px 19px 2px rgba(4, 30, 35, 0.68);
+  border: 1px solid var(--color-secondary);
+  box-shadow: 0px 0px 19px 2px var(--color-box-shadow);
   padding: 24px;
   width: 350px;
 
@@ -47,9 +47,8 @@ const ProgressBarWrapper = styled.div`
 `;
 
 const ProgressBarBackground = styled.div`
-  /* width: 20%; */
   height: 5px;
-  background-color: #0e464f;
+  background-color: var(--color-secondary);
   border-radius: 5px;
   overflow: hidden;
   border: 1px solid var(--color-gray-text);
@@ -58,7 +57,7 @@ const ProgressBarBackground = styled.div`
 
 const ProgressBarFill = styled.div`
   height: 100%;
-  background-color: #24a0b5;
+  background-color: var(--color-accent);
   border-radius: 5px;
   transition: width 0.3s ease;
 `;
@@ -67,8 +66,9 @@ const TicketBody = styled.div`
   background: ${({ readyPage }) =>
     readyPage
       ? "none"
-      : "radial-gradient(circle at bottom, #031c20 20%, #072b30 80%)"};
-  border: ${({ readyPage }) => (readyPage ? "none" : " 1px solid #0e464f")};
+      : `radial-gradient(circle at bottom, var(--color-primary) 20%, var(--color-card-background) 80%)`};
+  border: ${({ readyPage }) =>
+    readyPage ? "none" : `1px solid var(--color-card-border)`};
   padding: 12px;
   margin-top: 20px;
   border-radius: 32px;

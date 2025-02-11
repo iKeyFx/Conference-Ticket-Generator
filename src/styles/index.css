@@ -11,6 +11,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --color-primary: #041e23;       
+  --color-secondary: #0e464f;    
+  --color-accent: #24a0b5;       
+  --color-gray-text: #cccccc;    
+  --color-card-background: #072b30; 
+  --color-card-border: #0e464f;  
+  --color-box-shadow: rgba(4, 30, 35, 0.68);
 
 }
 

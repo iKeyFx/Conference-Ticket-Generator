@@ -59,21 +59,6 @@ const ProgressBarBackground = styled.div`
   flex: 1;
 `;
 
-const ProgressBarFill = styled.div`
-  height: 100%;
-  background-color: #24a0b5;
-  border-radius: 5px;
-  transition: width 0.3s ease;
-`;
-
-const TicketBody = styled.div`
-  background: radial-gradient(circle at bottom, #031c20 20%, #072b30 80%);
-  border: 1px solid #0e464f;
-  padding: 12px;
-  margin-top: 20px;
-  border-radius: 32px;
-`;
-
 const EventDetailsCard = styled.div`
   background: radial-gradient(circle at bottom, #031c20 20%, #072b30 80%);
   border: 1px solid #0e464f;

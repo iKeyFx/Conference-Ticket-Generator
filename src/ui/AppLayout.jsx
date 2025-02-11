@@ -15,7 +15,6 @@ function AppLayout() {
     <StyledAppLayout>
       <Header />
       <main>
-        {/* <TicketSelection /> */}
         <Outlet />
       </main>
     </StyledAppLayout>
