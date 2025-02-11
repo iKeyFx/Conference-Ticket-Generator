@@ -274,7 +274,7 @@ function TicketSelection() {
         <LocationInfo>
           <LocationWrapper>
             <img src={LocationIcon} alt="location icon" />
-            location
+            Ikoyi, Lagos
           </LocationWrapper>{" "}
           ||{" "}
           <div>
