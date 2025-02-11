@@ -9,7 +9,6 @@ import PreviewImageDefault from "../assets/default_image.png";
 import { uploadImageToCloudinary } from "../util/uploadImage";
 import { useLocation, useNavigate, useParams } from "react-router";
 
-// Styled Components
 const StyledInput = styled.input`
   display: grid;
   width: 95%;
@@ -18,6 +17,7 @@ const StyledInput = styled.input`
   border-radius: 12px;
   background-color: inherit;
   cursor: pointer;
+  color: #fff;
 
   &::placeholder {
     opacity: 0.7;
