@@ -5,7 +5,7 @@ import { Outlet } from "react-router";
 
 const StyledAppLayout = styled.div`
   padding: 1rem 8rem;
-
+  color: var(--color-text);
   @media (max-width: 900px) {
     padding: 1rem 1rem;
   }
