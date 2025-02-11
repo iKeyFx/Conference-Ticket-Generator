@@ -1,191 +1,159 @@
 import styled from "styled-components";
 import CardComponent from "../component/CardComponent";
-import TicketBg from "../assets/Ticket.png";
 import PreviewImageDefault from "../assets/default_image.png";
 import { StyledButton } from "./OrderDetails";
 import { useLocation, useNavigate } from "react-router";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TicketReg from "../assets/Property_Reg.png";
 import TicketVIP from "../assets/Property_VIP.png";
 import TicketVVIP from "../assets/Property_VVIP.png";
-const TicketContainer = styled.div`
+import { WiTime8 } from "react-icons/wi";
+
+const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 1rem;
   text-align: center;
 `;
 
-const TicketWrapper = styled.div`
-  background-image: url(${TicketBg});
-  background-size: contain;
-  background-repeat: no-repeat;
+const Ticket = styled.div`
   display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  justify-content: space-between;
+  flex-direction: column;
   position: relative;
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-secondary);
+  border-radius: 14px;
+  padding: 1rem;
   width: 100%;
-  max-width: 250px;
-  height: auto;
-  aspect-ratio: 2.8 / 1;
+  max-width: 350px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 
-  @media (max-width: 430px) {
-    max-width: 230px;
-  }
-
-  @media (max-width: 400px) {
-    max-width: 200px;
+  h2 {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
   }
 `;
 
-const AvatarImage = styled.img`
-  width: 70px;
-  height: 70px;
-  position: absolute;
-  left: 3%;
-  top: 8%;
-
-  @media (max-width: 330px) {
-    width: 50px;
-    height: 50px;
-  }
+const Avatar = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
 `;
 
-const EventDetails = styled.div`
-  color: white;
-  text-align: left;
-  flex-grow: 1;
-  padding: 0 10px;
-  position: absolute;
-  left: 28%;
-  top: 2%;
-
-  h3 {
-    margin: 0;
-    font-size: 1.7rem;
-    font-family: "Road Rage";
-    display: grid;
-    line-height: 1.1;
-  }
-
-  p {
-    font-size: 10px;
-    margin: 0 0;
-  }
-
-  @media (max-width: 430px) {
-    h3 {
-      font-size: 1.4rem;
-    }
-
-    p {
-      font-size: 9px;
-    }
-  }
-
-  @media (max-width: 400px) {
-    h3 {
-      font-size: 1.2rem;
-    }
-
-    p {
-      font-size: 8px;
-    }
-  }
-  @media (max-width: 330px) {
-    h3 {
-      font-size: 1rem;
-    }
-
-    p {
-      font-size: 7px;
-    }
-  }
-`;
-
-const RegistrationLabel = styled.img`
-  position: absolute;
-  top: 2%;
-  right: 15%;
-  width: 50px;
-
-  @media (max-width: 330px) {
-    width: 30px;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  margin-top: 10px;
+const EventContent = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+`;
+
+const TicketBadgeRight = styled.img`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+`;
+
+const TicketBadgeLeft = styled.img`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+`;
+
+const ActionButtons = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
   button {
     padding: 8px 20px;
     margin: 5px;
     cursor: pointer;
     font-size: 14px;
-    white-space: nowrap; // Ensure button text stays on one line
+    white-space: nowrap;
+    border-radius: 8px;
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-primary);
+    color: var(--color-accent);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--color-accent);
+      color: var(--color-primary);
+    }
   }
 
   @media (max-width: 450px) {
-    display: grid;
+    flex-direction: column;
     button {
       width: 100%;
     }
   }
 `;
 
-const VerticalContent = styled.div`
+const TicketDetails = styled.div`
   display: flex;
-  align-items: center;
-  position: absolute;
-  right: 9%;
-  top: 7%;
-  transform: translateY(-50%) rotate(-90deg);
-  transform-origin: right center;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--color-gray-text);
+  font-weight: 600;
 
-  h3 {
-    font-family: "Road rage";
-    margin: 0;
-    font-size: 0.8rem;
-    color: white;
-    white-space: nowrap;
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   span {
-    font-family: "Road rage";
-    display: block;
-    font-size: 0.8rem;
-    color: white;
-    white-space: nowrap;
-    font-weight: 600;
-    line-height: 1;
+    font-weight: 400;
+    color: var(--color-accent);
+  }
+`;
+
+const EventTitle = styled.div`
+  h4 {
+    margin-bottom: 0;
+    color: var(--color-accent);
   }
 
-  > div {
+  p {
+    margin: 4px 0;
+    color: var(--color-gray-text);
+  }
+`;
+
+const EventDateTime = styled.div`
+  h4 {
+    margin-bottom: 0;
+    color: var(--color-accent);
+  }
+
+  p {
+    margin: 4px 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gray-text);
   }
 `;
 
-const TicketLabel = styled.img`
-  width: 40px;
-  height: auto;
-  margin-bottom: 4px;
-  transform: rotate(270deg);
+const TicketHeader = styled.div`
+  background-color: var(--color-secondary);
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 
-  @media (max-width: 430px) {
-    width: 30px;
+  p {
+    margin: 0;
+    color: var(--color-accent);
+    font-weight: 600;
   }
-`;
-
-const TicketInfo = styled.span`
-  position: absolute;
-  bottom: 5%;
-  font-size: 9px;
-  color: #0e464f;
-  font-weight: 600;
 `;
 
 function TicketReady() {
@@ -196,16 +164,17 @@ function TicketReady() {
     formData: { imageUrl, firstName, lastName, email },
   } = location.state;
   const navigate = useNavigate();
-  const [stickerImage, setStickerImage] = useState(null);
+  const [badgeImage, setBadgeImage] = useState(null);
+
   useEffect(() => {
     if (ticketType === "Regular Access") {
-      setStickerImage(TicketReg);
+      setBadgeImage(TicketReg);
     }
     if (ticketType === "VIP Access") {
-      setStickerImage(TicketVIP);
+      setBadgeImage(TicketVIP);
     }
     if (ticketType === "VVIP Access") {
-      setStickerImage(TicketVVIP);
+      setBadgeImage(TicketVVIP);
     }
   }, [ticketType]);
 
@@ -214,38 +183,61 @@ function TicketReady() {
     localStorage.removeItem("imagePreview");
     navigate("/step-1");
   };
+
   return (
     <CardComponent title="Your Ticket Is Ready" readyPage={true} progress={3}>
-      <TicketContainer>
+      <Container>
         <p>You can download or check your email for a copy.</p>
-        <TicketWrapper>
-          <AvatarImage src={imageUrl} alt="Avatar" />
-          <EventDetails>
-            <h3>Techember</h3>
-            <h3>Fest "25</h3>
-            <p>📍 04 Rumens Road, Ikoyi, Lagos</p>
-            <p>📅 March 15, 2025 | 7:00 PM</p>
-          </EventDetails>
-          <RegistrationLabel src={stickerImage} alt="Registration Label" />
-          <TicketInfo>Ticket for 1 entry only</TicketInfo>
+        <Ticket>
+          <TicketBadgeRight src={badgeImage} alt="Ticket Badge" />
+          <TicketBadgeLeft src={badgeImage} alt="Ticket Badge" />
+          <h2>Techember Fest</h2>
 
-          <VerticalContent>
-            <TicketLabel src={stickerImage} alt="Ticket Regular" />
+          <TicketHeader>
+            <p>Event Ticket</p>
+          </TicketHeader>
+
+          <EventContent>
             <div>
-              <h3>{email}</h3>
-              <span>
-                Name: {firstName} {lastName}
-              </span>
+              <EventTitle>
+                <h4>Techember Fest 2025</h4>
+                <p>📍 04 Rumens Road, Ikoyi, Lagos</p>
+              </EventTitle>
+              <EventDateTime>
+                <p>📅 March 15, 2025</p>
+                <p>
+                  <WiTime8 />
+                  8:00 PM
+                </p>
+              </EventDateTime>
             </div>
-          </VerticalContent>
-        </TicketWrapper>
-        <ButtonContainer>
+            <div>
+              <Avatar src={imageUrl} alt="Avatar" />
+            </div>
+          </EventContent>
+
+          <TicketDetails>
+            <div>
+              <span>Name:</span>
+              <p>{`${firstName} ${lastName}`}</p>
+            </div>
+            <div>
+              <span>Email:</span>
+              <p>{email}</p>
+            </div>
+            <div>
+              <span>Ticket Number:</span>
+              <p>123546707390383930</p>
+            </div>
+          </TicketDetails>
+        </Ticket>
+        <ActionButtons>
           <StyledButton onClick={handleGetNewTicket}>
             Get Another Ticket
           </StyledButton>
           <StyledButton submit={true}>Download Ticket</StyledButton>
-        </ButtonContainer>
-      </TicketContainer>
+        </ActionButtons>
+      </Container>
     </CardComponent>
   );
 }

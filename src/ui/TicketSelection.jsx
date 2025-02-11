@@ -5,68 +5,28 @@ import CardComponent from "../component/CardComponent";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-// Styled Components
 const SectionContainer = styled.section`
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: var(--spacing-lg);
 
   @media (max-width: 500px) {
     font-size: 12px;
   }
 `;
 
-const TicketCardContainer = styled.div`
-  background-color: #041e23;
-  border-radius: 40px;
-  border: 1px solid #0e464f;
-  box-shadow: 0px 0px 19px 2px rgba(4, 30, 35, 0.68);
-  padding: 24px;
-  width: 350px;
-
-  @media (max-width: 500px) {
-    padding: 16px 16px;
-  }
-`;
-
-const CardHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  p {
-    margin: 0;
-  }
-
-  h3 {
-    margin: 0;
-  }
-`;
-
-const ProgressBarWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  margin-top: 0.2rem;
-`;
-
-const ProgressBarBackground = styled.div`
-  width: 20%;
-  height: 5px;
-  background-color: #0e464f;
-  border-radius: 5px;
-  overflow: hidden;
-  border: 1px solid var(--color-gray-text);
-  flex: 1;
-`;
-
 const EventDetailsCard = styled.div`
-  background: radial-gradient(circle at bottom, #031c20 20%, #072b30 80%);
-  border: 1px solid #0e464f;
-  border-radius: 32px;
-  padding: 12px 24px;
+  background: radial-gradient(
+    circle at bottom,
+    var(--color-primary) 20%,
+    var(--color-secondary) 80%
+  );
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
   text-align: center;
-  margin-bottom: 15px;
-  box-shadow: rgba(7, 55, 63, 1) 0px 1px 4px;
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--color-shadow-card) 0px 1px 4px;
 
   h3 {
     margin: 0;
@@ -77,12 +37,12 @@ const EventDetailsCard = styled.div`
   p {
     margin: 0;
     font-size: 14px;
-    margin-bottom: 5px;
+    margin-bottom: var(--spacing-xs);
   }
 
   span {
     font-size: 14px;
-    color: #ffffff;
+    color: var(--color-text);
   }
 
   @media (max-width: 500px) {
@@ -109,13 +69,13 @@ const LocationWrapper = styled.span`
 const LocationInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: var(--spacing-xs);
   justify-content: center;
 
   div {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: var(--spacing-xs);
   }
 
   @media (max-width: 500px) {
@@ -128,24 +88,24 @@ const LocationInfo = styled.div`
 `;
 
 export const Divider = styled.hr`
-  border-color: #07373f;
+  border-color: var(--color-secondary);
 `;
 
 const TicketTypeSection = styled.div`
   p {
-    margin-bottom: 5px;
+    margin-bottom: var(--spacing-xs);
   }
 `;
 
 const TicketTypeGrid = styled.div`
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  border: 1px solid #07373f;
-  border-radius: 24px;
-  padding: 10px;
+  box-shadow: var(--color-shadow-ticket) 0px 50px 100px -20px,
+    var(--color-shadow-ticket-dark) 0px 30px 60px -30px,
+    var(--color-shadow-ticket-inset) 0px -2px 6px 0px inset;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-sm);
   display: grid;
-  gap: 1rem;
+  gap: var(--spacing-md);
 `;
 
 const TicketOption = styled.div`
@@ -153,28 +113,29 @@ const TicketOption = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  gap: 1rem;
-  border: 1px solid #07373f;
-  padding: 8px;
-  border-radius: 12px;
-  background-color: ${({ isSelected }) => (isSelected ? "#197686" : "none")};
+  gap: var(--spacing-md);
+  border: 1px solid var(--color-secondary);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  background-color: ${({ isSelected }) =>
+    isSelected ? "var(--color-accent-dark)" : "transparent"};
 
   p {
     margin: 0;
   }
 
   &:hover {
-    background-color: #197686;
-    border: 1px solid #197686;
+    background-color: var(--color-accent-dark);
+    border: 1px solid var(--color-accent-dark);
     transition: all 0.3s;
   }
 `;
 
 const TicketPrice = styled.div`
-  background-color: #0e464f;
-  border: 1px solid #2ba4b9;
-  padding: 0px 5px;
-  border-radius: 8px;
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-accent);
+  padding: 0px var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
 `;
 
 const TicketQuantitySelector = styled.div`
@@ -185,19 +146,20 @@ const TicketQuantitySelector = styled.div`
   select {
     display: flex;
     width: 100%;
-    border: 1px solid #07373f;
-    background-color: inherit;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 24px;
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-input-bg);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text);
 
     &:focus {
-      border: 1px solid #07373f;
-      outline: 1px solid#ffffff;
+      border: 1px solid var(--color-secondary);
+      outline: 1px solid var(--color-text);
     }
 
     option {
-      background-color: #07373f;
+      background-color: var(--color-secondary);
     }
   }
 `;
@@ -208,15 +170,15 @@ export const ActionButtons = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 12px 24px;
+  padding: var(--spacing-md) var(--spacing-lg);
   width: 40%;
-  border: 1px solid #07373f;
-  background-color: #041e23;
-  color: #ffffff;
+  border: 1px solid var(--color-secondary);
+  background-color: var(--color-primary);
+  color: var(--color-text);
 
   &:hover {
-    background-color: #197686;
-    color: #ffffff;
+    background-color: var(--color-accent-dark);
+    color: var(--color-text);
     transition: all 0.3s;
   }
 `;

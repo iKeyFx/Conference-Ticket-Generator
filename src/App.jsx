@@ -10,7 +10,6 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      {/* <AppLayout /> */}
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>

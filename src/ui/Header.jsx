@@ -3,9 +3,9 @@ import LogoIconTicket from "../assets/icon_ticket.png";
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-  background-color: #052f35;
-  padding: 0.2rem 0.8rem;
-  border-radius: 24px;
+  background-color: var(--color-header-bg);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-lg);
 
   @media (max-width: 500px) {
     font-size: 12px;
@@ -20,15 +20,15 @@ const StyledNav = styled.nav`
   ul {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
+    gap: var(--spacing-lg);
   }
 
   li {
     cursor: pointer;
-    color: #b3b3b3;
+    color: var(--color-text-muted);
 
     &:hover {
-      color: #ffffff;
+      color: var(--color-text);
     }
   }
 
@@ -42,7 +42,7 @@ const StyledNav = styled.nav`
 const StyledLogoDiv = styled.div`
   display: flex;
   place-items: center;
-  gap: 0.2rem;
+  gap: var(--spacing-xs);
 
   span {
     font-family: "Road Rage", serif;
@@ -54,24 +54,26 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  background-color: #ffffff;
-  color: #0a0c11;
+  gap: var(--spacing-sm);
+  background-color: var(--color-text);
+  color: var(--color-dark);
 
   &:hover {
-    background-color: #24a0b5;
-    color: #d9d9d9;
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
   }
 `;
+
 const ImageDiv = styled.div`
-  background-color: #052f35;
-  border: 2px solid #0e464f;
+  background-color: var(--color-header-bg);
+  border: 2px solid var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border-radius: 12px;
+  border-radius: var(--border-radius-md);
 `;
+
 function Header() {
   return (
     <StyledHeader>

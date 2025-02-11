@@ -12,23 +12,23 @@ import { useLocation, useNavigate, useParams } from "react-router";
 const StyledInput = styled.input`
   display: grid;
   width: 95%;
-  padding: 0.5rem;
-  border: 1px solid #07373f;
-  border-radius: 12px;
-  background-color: inherit;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-input-bg);
   cursor: pointer;
-  color: #fff;
+  color: var(--color-text);
 
   &::placeholder {
-    opacity: 0.7;
+    color: var(--color-text-placeholder);
   }
 
   &:hover {
-    border: 2px solid #07373f;
+    border: 2px solid var(--color-secondary);
   }
 
   &:focus {
-    outline: 1px solid #fff;
+    outline: 1px solid var(--color-text);
   }
 `;
 
@@ -36,12 +36,12 @@ const EmailContainer = styled.div`
   position: relative;
 
   input {
-    text-indent: 1.2rem;
+    text-indent: var(--spacing-lg);
   }
 
   @media (max-width: 500px) {
     input {
-      text-indent: 0.8rem;
+      text-indent: var(--spacing-sm);
     }
   }
 `;
@@ -59,15 +59,15 @@ const EmailIcon = styled(MdOutlineMail)`
 
 const ErrorMessage = styled.span`
   font-size: 12px;
-  color: red;
-  padding-left: 0.5rem;
+  color: var(--color-error);
+  padding-left: var(--spacing-sm);
 `;
 
 const ImagePreviewContainer = styled.div`
-  background-color: #052228;
-  border-radius: 24px;
-  border: 1px solid #07373f;
-  padding: 12px 24px;
+  background-color: var(--color-image-preview-bg);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--spacing-sm) var(--spacing-md);
 
   p {
     margin: 0;
@@ -77,7 +77,7 @@ const ImagePreviewContainer = styled.div`
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 0.3rem;
+  margin-top: var(--spacing-xs);
 `;
 
 const PreviewImage = styled.img`
@@ -93,20 +93,22 @@ const PreviewImage = styled.img`
 
 export const StyledButton = styled.button`
   width: 45%;
-  padding: 0.5rem;
-  /* background-color: inherit; */
-  color: ${({ submit }) => (submit ? "#ffffff" : "#24A0B5")};
-  border: 1px solid #07373f;
-  border-radius: 12px;
-  margin-top: 0.5rem;
+  padding: var(--spacing-sm);
+  color: ${({ submit }) =>
+    submit ? "var(--color-text)" : "var(--color-accent)"};
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius-md);
+  margin-top: var(--spacing-sm);
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  background-color: ${({ submit }) => (submit ? "#24A0B5" : "inherit")};
+  background-color: ${({ submit }) =>
+    submit ? "var(--color-accent)" : "var(--color-input-bg)"};
 
   &:hover {
-    background-color: ${({ submit }) => (submit ? "#197686" : "")};
-    color: #ffffff;
+    background-color: ${({ submit }) =>
+      submit ? "var(--color-accent-dark)" : ""};
+    color: var(--color-text);
     transition: all 0.3s;
   }
 `;

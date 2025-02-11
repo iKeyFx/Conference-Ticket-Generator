@@ -11,13 +11,28 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --color-primary: #041e23;       
-  --color-secondary: #0e464f;    
-  --color-accent: #24a0b5;       
-  --color-gray-text: #cccccc;    
-  --color-card-background: #072b30; 
-  --color-card-border: #0e464f;  
-  --color-box-shadow: rgba(4, 30, 35, 0.68);
+  :root {
+    --color-primary: #052228;       /* Primary background color */
+    --color-secondary: #07373f;     /* Secondary border color */
+    --color-accent: #24a0b5;        /* Accent color */
+    --color-accent-dark: #197686;   /* Darker accent color for hover effects */
+    --color-text: #ffffff;          /* White text color */
+    --color-text-placeholder: rgba(255, 255, 255, 0.7); /* Placeholder text */
+    --color-error: red;             /* Error message color */
+    --color-input-bg: inherit;      /* Input background color */
+    --color-card-bg: #052228;       /* Card background color */
+    --color-card-border: #07373f;   /* Card border color */
+    --color-image-preview-bg: #052228; /* Image preview container background */
+    --color-gray-text: #cccccc;     /* Gray text color */
+    --border-radius-sm: 8px;        /* Small border radius */
+    --border-radius-md: 12px;       /* Medium border radius */
+    --border-radius-lg: 24px;       /* Large border radius */
+    --spacing-xs: 0.3rem;           /* Extra small spacing */
+    --spacing-sm: 0.5rem;           /* Small spacing */
+    --spacing-md: 1rem;             /* Medium spacing */
+    --spacing-lg: 1.2rem;           /* Large spacing */
+  }
+  
 
 }
 
