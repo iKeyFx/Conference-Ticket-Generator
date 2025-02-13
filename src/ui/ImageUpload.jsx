@@ -1,44 +1,71 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import PreviewImageDefault from "../assets/default_image.png";
+import UploadIconL from "../assets/cloud-download.png";
+import { GiSandsOfTime } from "react-icons/gi";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 
 const UploadContainer = styled.div`
-  background-color: var(--color-image-preview-bg);
-  border-radius: var(--border-radius-lg);
-  border: 2px dashed
-    ${(props) =>
-      props.hasError ? "var(--color-error)" : "var(--color-secondary)"};
-  padding: var(--spacing-sm);
-  margin-bottom: ${(props) => (props.hasError ? "0" : "var(--spacing-md)")};
+  background-color: rgba(0, 128, 128, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: 2px solid
+    ${(props) =>
+      props.hasError ? "var(--color-error)" : "rgba(0, 128, 128, 0.3)"};
+  position: relative;
+  overflow: hidden;
 
   ${(props) =>
     props.isDragging &&
     `
-    border-color: var(--color-accent);
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 128, 128, 0.2);
+    border-color: rgba(0, 128, 128, 0.5);
+  `}
+
+  ${(props) =>
+    props.hasImage &&
+    `
+    padding: 0;
+    aspect-ratio: 16/9;
   `}
 `;
 
-const ImageContainer = styled.div`
+const UploadContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 1rem;
+  color: teal;
 `;
 
-const PreviewImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
+const UploadIcon = styled(AiOutlineCloudUpload)`
+  width: 2rem;
+  height: 2rem;
+  color: teal;
+  opacity: 0.7;
 `;
 
 const UploadText = styled.p`
-  margin: var(--spacing-xs) 0;
+  margin: 0;
   text-align: center;
-  color: var(--color-text);
+  color: teal;
+  opacity: 0.7;
+  font-size: 0.9rem;
+`;
+
+const Title = styled.h3`
+  color: teal;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+`;
+
+const PreviewImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
 `;
 
 const HiddenInput = styled.input`
@@ -48,17 +75,13 @@ const HiddenInput = styled.input`
 const ErrorMessage = styled.span`
   font-size: 12px;
   color: var(--color-error);
-  padding-left: var(--spacing-sm);
   display: block;
-  margin-bottom: var(--spacing-md);
+  margin-top: 0.5rem;
 `;
 
-const ImageUpload = ({
-  onImageUpload,
-  imagePreview = PreviewImageDefault,
-  error,
-}) => {
+const ImageUpload = ({ onImageUpload, error }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
 
   const handleDrag = useCallback((e) => {
     e.preventDefault();
@@ -70,49 +93,54 @@ const ImageUpload = ({
     }
   }, []);
 
-  const handleDrop = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(false);
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
 
-      const files = e.dataTransfer.files;
-      if (files && files[0]) {
-        onImageUpload(files[0]);
-      }
-    },
-    [onImageUpload]
-  );
+    const files = e.dataTransfer.files;
+    if (files && files[0]) {
+      handleFile(files[0]);
+    }
+  }, []);
 
-  const handleChange = useCallback(
-    (e) => {
-      const files = e.target.files;
-      if (files && files[0]) {
-        onImageUpload(files[0]);
-      }
-    },
-    [onImageUpload]
-  );
+  const handleFile = async (file) => {
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setUploadedImage(previewUrl);
+
+      await onImageUpload(file);
+    }
+  };
+
+  const handleChange = (e) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+      handleFile(files[0]);
+    }
+  };
 
   return (
-    <>
+    <div>
+      <Title>Upload Profile Photo</Title>
       <UploadContainer
         isDragging={isDragging}
         hasError={!!error}
+        hasImage={!!uploadedImage}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
         onDrop={handleDrop}
         onClick={() => document.getElementById("fileInput").click()}
       >
-        <ImageContainer>
-          <PreviewImage src={imagePreview} alt="Preview" />
-          <UploadText>
-            {isDragging
-              ? "Drop image here"
-              : "Drag and drop an image or click to upload"}
-          </UploadText>
-        </ImageContainer>
+        {uploadedImage ? (
+          <PreviewImage src={uploadedImage} alt="Uploaded preview" />
+        ) : (
+          <UploadContent>
+            <UploadIcon />
+            <UploadText>Drag & drop or click to upload</UploadText>
+          </UploadContent>
+        )}
         <HiddenInput
           id="fileInput"
           type="file"
@@ -121,7 +149,7 @@ const ImageUpload = ({
         />
       </UploadContainer>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-    </>
+    </div>
   );
 };
 

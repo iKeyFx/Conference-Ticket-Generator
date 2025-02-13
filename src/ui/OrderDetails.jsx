@@ -131,14 +131,22 @@ function OrderDetails() {
   const navigate = useNavigate();
 
   const handleImageUpload = async (file) => {
-    if (file) {
-      await uploadImageToCloudinary(
+    try {
+      setIsUploading(true);
+      const uploadedUrl = await uploadImageToCloudinary(
         file,
         setImagePreview,
         setIsUploading,
         setValue
       );
-      trigger("imageUrl");
+      if (uploadedUrl) {
+        setValue("imageUrl", uploadedUrl);
+        trigger("imageUrl"); // Trigger validation
+      }
+    } catch (error) {
+      console.error("Upload failed:", error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -171,10 +179,13 @@ function OrderDetails() {
     <CardComponent ContainerWidth="600px" title="Attendee Details" progress={2}>
       <ImageUpload
         onImageUpload={handleImageUpload}
-        imagePreview={imagePreview}
         error={errors?.imageUrl?.message}
       />
-      {isUploading && <p>Uploading image...</p>}
+      {isUploading && (
+        <p style={{ color: "teal", textAlign: "center", margin: "1rem 0" }}>
+          Uploading image...
+        </p>
+      )}
       <Divider />
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
         <input
