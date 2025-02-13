@@ -8,6 +8,7 @@ import { isValidImageUrl } from "../util/ValidateImage";
 import PreviewImageDefault from "../assets/default_image.png";
 import { uploadImageToCloudinary } from "../util/uploadImage";
 import { useLocation, useNavigate, useParams } from "react-router";
+import ImageUpload from "./ImageUpload";
 
 const StyledInput = styled.input`
   display: grid;
@@ -157,12 +158,16 @@ function OrderDetails() {
   const location = useLocation();
   const { ticketType, quantity } = location.state;
   const navigate = useNavigate();
-  //   console.log(quantity, ticketType);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleImageUpload = async (file) => {
     if (file) {
-      uploadImageToCloudinary(file, setImagePreview, setIsUploading, setValue);
+      await uploadImageToCloudinary(
+        file,
+        setImagePreview,
+        setIsUploading,
+        setValue
+      );
+      trigger("imageUrl"); // Trigger validation after upload
     }
   };
 
@@ -193,48 +198,26 @@ function OrderDetails() {
 
   return (
     <CardComponent ContainerWidth="600px" title="Attendee Details" progress={2}>
-      <ImagePreviewContainer>
+      {/* <ImagePreviewContainer>
         <p>Image Preview:</p>
         <ImageWrapper>
           <PreviewImage src={imagePreview} alt="Uploaded Avatar" />
         </ImageWrapper>
-      </ImagePreviewContainer>
+      </ImagePreviewContainer> */}
+      <ImageUpload
+        onImageUpload={handleImageUpload}
+        imagePreview={imagePreview}
+        error={errors?.imageUrl?.message}
+      />
+      {isUploading && <p>Uploading image...</p>}
       <Divider />
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <FormRow>
-          <label htmlFor="imageUpload">Upload Image:</label>
-          <br />
-          <StyledInput
-            type="file"
-            id="imageUpload"
-            accept="image/*"
-            onChange={handleFileChange}
-            disabled={isUploading}
-          />
-          {isUploading && <p>Uploading image...</p>}
-        </FormRow>
-        <FormRow>
-          <label htmlFor="imageUrl">Image URL:</label>
-          <br />
-          <StyledInput
-            type="text"
-            placeholder="Image URL"
-            id="imageUrl"
-            {...register("imageUrl", {
-              required: "Image URL is required",
-              pattern: {
-                value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/i,
-                message: "Invalid image URL format",
-              },
-              validate: async (url) =>
-                (await isValidImageUrl(url)) || "Invalid image URL",
-            })}
-            onChange={(e) => setImagePreview(e.target.value)}
-          />
-          {errors?.imageUrl?.message && (
-            <ErrorMessage>{errors?.imageUrl?.message}</ErrorMessage>
-          )}
-        </FormRow>
+        <input
+          type="hidden"
+          {...register("imageUrl", {
+            required: "Please upload an image",
+          })}
+        />
         <FormRow>
           <label htmlFor="name">Enter your name:</label>
           <br />
@@ -277,17 +260,11 @@ function OrderDetails() {
           <label htmlFor="textarea">Special Request:</label>
           <br />
           <EmailContainer>
-            <TextArea
-              type="text"
-              id="textarea"
-              {...register("textarea", {
-                required: "This field is required",
-              })}
-            />
+            <TextArea type="text" id="textarea" {...register("textarea")} />
           </EmailContainer>
-          {errors?.textarea?.message && (
+          {/* {errors?.textarea?.message && (
             <ErrorMessage>{errors?.textarea?.message}</ErrorMessage>
-          )}
+          )} */}
         </FormRow>
         <ActionButtons>
           <StyledButton
