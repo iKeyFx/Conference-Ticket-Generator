@@ -113,6 +113,7 @@ const TicketTypeGrid = styled.div`
 `;
 
 const TicketOption = styled.div`
+  flex: 1;
   cursor: pointer;
   gap: var(--spacing-md);
   border: 1px solid var(--color-accent-dark);
