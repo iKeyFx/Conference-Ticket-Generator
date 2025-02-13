@@ -119,6 +119,28 @@ const FormRow = styled.div`
   margin-bottom: 0.5rem;
 `;
 
+const TextArea = styled.textarea`
+  display: grid;
+  width: 95%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-input-bg);
+  cursor: pointer;
+  color: var(--color-text);
+
+  &::placeholder {
+    color: var(--color-text-placeholder);
+  }
+
+  &:hover {
+    border: 2px solid var(--color-secondary);
+  }
+
+  &:focus {
+    outline: 1px solid var(--color-text);
+  }
+`;
 function OrderDetails() {
   const {
     register,
@@ -263,6 +285,23 @@ function OrderDetails() {
           </EmailContainer>
           {errors?.email?.message && (
             <ErrorMessage>{errors?.email?.message}</ErrorMessage>
+          )}
+        </FormRow>
+
+        <FormRow>
+          <label htmlFor="textarea">Special Request:</label>
+          <br />
+          <EmailContainer>
+            <TextArea
+              type="text"
+              id="textarea"
+              {...register("textarea", {
+                required: "This field is required",
+              })}
+            />
+          </EmailContainer>
+          {errors?.textarea?.message && (
+            <ErrorMessage>{errors?.textarea?.message}</ErrorMessage>
           )}
         </FormRow>
         <ActionButtons>

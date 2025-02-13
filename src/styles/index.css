@@ -13,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
   :root {
     --color-primary: #052228;
+    --color-primary-1: #08343C;
     --color-secondary: #07373f;
     --color-accent: #24a0b5;
     --color-accent-dark: #197686;

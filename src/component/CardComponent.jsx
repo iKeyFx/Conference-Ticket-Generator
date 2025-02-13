@@ -2,7 +2,6 @@ import { GrLocationPin } from "react-icons/gr";
 import styled from "styled-components";
 import LocationIcon from "../assets/location_icon.png";
 
-// Styled Components
 const SectionContainer = styled.section`
   display: flex;
   justify-content: center;
@@ -19,7 +18,9 @@ const TicketCardContainer = styled.div`
   border: 1px solid var(--color-secondary);
   box-shadow: 0px 0px 19px 2px var(--color-box-shadow);
   padding: 24px;
-  width: 350px;
+  /* max-width: 500px; */
+  min-width: 350px;
+  /* width: 350px; */
 
   @media (max-width: 500px) {
     padding: 16px 16px;
