@@ -195,15 +195,7 @@ const Avatar = styled.img`
   border-radius: 8px;
   border: 2px solid var(--color-accent);
 `;
-function NewReady({
-  ticketType,
-  quantity,
-  imageUrl,
-  firstName,
-  lastName,
-  email,
-  textarea,
-}) {
+function NewReady({ ticketType, quantity, imageUrl, name, email, textarea }) {
   return (
     <Container>
       <TicketContainer>
@@ -234,9 +226,7 @@ function NewReady({
               <FormGrid>
                 <FormField>
                   <label>Enter your name</label>
-                  <div>
-                    {firstName} {lastName}
-                  </div>
+                  <div>{name}</div>
                 </FormField>
                 <FormField>
                   <label>Enter your email *</label>

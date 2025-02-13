@@ -192,7 +192,7 @@ function OrderDetails() {
   }, [formData]);
 
   return (
-    <CardComponent title="Attendee Details" progress={2}>
+    <CardComponent ContainerWidth="600px" title="Attendee Details" progress={2}>
       <ImagePreviewContainer>
         <p>Image Preview:</p>
         <ImageWrapper>
@@ -236,35 +236,20 @@ function OrderDetails() {
           )}
         </FormRow>
         <FormRow>
-          <label htmlFor="firstName">First Name:</label>
+          <label htmlFor="name">Enter your name:</label>
           <br />
           <StyledInput
             type="text"
-            placeholder="First Name"
-            id="firstName"
-            {...register("firstName", {
+            id="name"
+            {...register("name", {
               required: "This field is required",
             })}
           />
-          {errors?.firstName?.message && (
-            <ErrorMessage>{errors?.firstName?.message}</ErrorMessage>
+          {errors?.name?.message && (
+            <ErrorMessage>{errors?.name?.message}</ErrorMessage>
           )}
         </FormRow>
-        <FormRow>
-          <label htmlFor="lastName">Last Name:</label>
-          <br />
-          <StyledInput
-            type="text"
-            placeholder="Last Name"
-            id="lastName"
-            {...register("lastName", {
-              required: "This field is required",
-            })}
-          />
-          {errors?.lastName?.message && (
-            <ErrorMessage>{errors?.lastName?.message}</ErrorMessage>
-          )}
-        </FormRow>
+
         <FormRow>
           <label htmlFor="email">Email Address:</label>
           <br />

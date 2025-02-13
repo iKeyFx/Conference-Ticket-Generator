@@ -102,7 +102,7 @@ function TicketReady() {
   const {
     ticketType,
     quantity,
-    formData: { imageUrl, firstName, lastName, email, textarea },
+    formData: { imageUrl, name, email, textarea },
   } = location.state;
   const navigate = useNavigate();
 
@@ -129,8 +129,7 @@ function TicketReady() {
           ticketType={ticketType}
           quantity={quantity}
           imageUrl={imageUrl}
-          firstName={firstName}
-          lastName={lastName}
+          name={name}
           email={email}
           textarea={textarea}
         />
