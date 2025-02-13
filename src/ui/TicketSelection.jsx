@@ -104,40 +104,49 @@ const TicketTypeGrid = styled.div`
   border: 1px solid var(--color-secondary);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-sm);
-  display: grid;
+  display: flex;
   gap: var(--spacing-md);
+
+  @media (max-width: 500px) {
+    display: grid;
+  }
 `;
 
 const TicketOption = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   cursor: pointer;
   gap: var(--spacing-md);
-  border: 1px solid var(--color-secondary);
+  border: 1px solid var(--color-accent-dark);
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-md);
   background-color: ${({ isSelected }) =>
     isSelected ? "var(--color-accent-dark)" : "transparent"};
-
+  min-width: 70px;
   p {
     margin: 0;
   }
 
   &:hover {
     background-color: var(--color-accent-dark);
-    border: 1px solid var(--color-accent-dark);
     transition: all 0.3s;
   }
 `;
 
 const TicketPrice = styled.div`
-  background-color: var(--color-secondary);
-  border: 1px solid var(--color-accent);
-  padding: 0px var(--spacing-xs);
-  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
 `;
 
+const TicketType = styled.div`
+  p {
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  span {
+    white-space: nowrap;
+    display: block;
+  }
+`;
 const TicketQuantitySelector = styled.div`
   p {
     margin-bottom: 0;
@@ -245,11 +254,11 @@ function TicketSelection() {
               }
             }}
           >
-            <div>
-              <p>Regular Access</p>
-              <span>20 left</span>
-            </div>
             <TicketPrice>Free</TicketPrice>
+            <TicketType>
+              <p>Regular Access</p>
+              <span>20/52</span>
+            </TicketType>
           </TicketOption>
           <TicketOption
             role="button"
@@ -262,11 +271,11 @@ function TicketSelection() {
               }
             }}
           >
-            <div>
-              <p>VIP Access</p>
-              <span>20 left</span>
-            </div>
             <TicketPrice>$50</TicketPrice>
+            <TicketType>
+              <p>VIP Access</p>
+              <span>20/52</span>
+            </TicketType>
           </TicketOption>
           <TicketOption
             role="button"
@@ -279,11 +288,11 @@ function TicketSelection() {
             }}
             isSelected={selectedTicketType === "VVIP Access"}
           >
-            <div>
-              <p>VVIP Access</p>
-              <span>20 left</span>
-            </div>
             <TicketPrice>$150</TicketPrice>
+            <TicketType>
+              <p>VVIP Access</p>
+              <span>20/52</span>
+            </TicketType>
           </TicketOption>
         </TicketTypeGrid>
       </TicketTypeSection>
