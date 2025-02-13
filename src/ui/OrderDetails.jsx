@@ -4,7 +4,6 @@ import { ActionButtons, Divider } from "./TicketSelection";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { isValidImageUrl } from "../util/ValidateImage";
 import PreviewImageDefault from "../assets/default_image.png";
 import { uploadImageToCloudinary } from "../util/uploadImage";
 import { useLocation, useNavigate, useParams } from "react-router";
@@ -62,34 +61,6 @@ const ErrorMessage = styled.span`
   font-size: 12px;
   color: var(--color-error);
   padding-left: var(--spacing-sm);
-`;
-
-const ImagePreviewContainer = styled.div`
-  background-color: var(--color-image-preview-bg);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--color-card-border);
-  padding: var(--spacing-sm) var(--spacing-md);
-
-  p {
-    margin: 0;
-  }
-`;
-
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: var(--spacing-xs);
-`;
-
-const PreviewImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-  }
 `;
 
 export const StyledButton = styled.button`
@@ -167,7 +138,7 @@ function OrderDetails() {
         setIsUploading,
         setValue
       );
-      trigger("imageUrl"); // Trigger validation after upload
+      trigger("imageUrl");
     }
   };
 
@@ -198,12 +169,6 @@ function OrderDetails() {
 
   return (
     <CardComponent ContainerWidth="600px" title="Attendee Details" progress={2}>
-      {/* <ImagePreviewContainer>
-        <p>Image Preview:</p>
-        <ImageWrapper>
-          <PreviewImage src={imagePreview} alt="Uploaded Avatar" />
-        </ImageWrapper>
-      </ImagePreviewContainer> */}
       <ImageUpload
         onImageUpload={handleImageUpload}
         imagePreview={imagePreview}
@@ -262,9 +227,6 @@ function OrderDetails() {
           <EmailContainer>
             <TextArea type="text" id="textarea" {...register("textarea")} />
           </EmailContainer>
-          {/* {errors?.textarea?.message && (
-            <ErrorMessage>{errors?.textarea?.message}</ErrorMessage>
-          )} */}
         </FormRow>
         <ActionButtons>
           <StyledButton
